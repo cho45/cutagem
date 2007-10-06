@@ -1,5 +1,5 @@
 
-= cutagem
+= cutagem - Cut a Gem for creating new beautiful gem.
 
 by cho45 <cho45@lowreal.net>
 
@@ -37,7 +37,7 @@ Most simple sample:
 	cp -r /Users/cho45/.cutagem/templates/default /Users/cho45/tmp/gemname
 	Done.
 
-When +gemname+ includes hyphens, it's replace with "/".
+When +gemname+ includes hyphens, it's replaced with "/".
 
 	$ cutagem module-test
 	Using Template: .cutagem/templates/default
@@ -122,3 +122,4 @@ Of course ERB is Ruby, you can write everything in the bracket.
 Author::    cho45 <cho45@lowreal.net>
 Copyright:: Copyright (c) 2007 cho45 www.lowreal.net
 License::   Ruby's
+
