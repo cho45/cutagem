@@ -14,7 +14,7 @@ EMAIL = "cho45@lowreal.net"
 DESCRIPTION = "More safe eval codes."
 RUBYFORGE_PROJECT = "cutagem"
 HOMEPATH = "http://#{RUBYFORGE_PROJECT}.rubyforge.org"
-BIN_FILES = %w(  )
+BIN_FILES = %w( cutagem )
 
 #VERS = File.read("#{File.dirname(__FILE__)}/bin/cutagem")[/VERSION = "(\d\.\d\.\d)"/, 1]
 load "#{File.dirname(__FILE__)}/lib/cutagem.rb"
