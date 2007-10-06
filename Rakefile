@@ -7,6 +7,7 @@ require 'rake/gempackagetask'
 require 'rake/rdoctask'
 require 'rake/contrib/rubyforgepublisher'
 require 'fileutils'
+require 'rubyforge'
 include FileUtils
 
 AUTHOR = "cho45"
