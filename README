@@ -5,13 +5,18 @@ by cho45 <cho45@lowreal.net>
 
 == Description
 
-cutagem (Cut a Gem) is yet another executable of creating gem skelton.
+cutagem (Cut a Gem) is yet another executable for creating gem skelton.
+
+This is similar in concept to newgem[http://newgem.rubyforge.org/] but
+more customizable for each users.
+
+== Concept
+
+* User customizable templates.
+* Not use hoe, etc. Because it makes difficult to customize the created Rakefile.
+  A time like this, copy and paste is better than DRY.
 
 == Installation
-
-=== Archive Installation
-
-	rake install
 
 === Gem Installation
 
@@ -23,23 +28,90 @@ Hosted by CodeRepos[http://coderepos.org/share/browser/lang/ruby/cutagem]
 
 	svn co http://svn.coderepos.org/share/lang/ruby/cutagem/
 
-
 == Usage
 
+Most simple sample:
+
 	$ cutagem gemname
-	lib/gemname
+	Using Template: .cutagem/templates/default
+	cp -r /Users/cho45/.cutagem/templates/default /Users/cho45/tmp/gemname
+	Done.
+
+When +gemname+ includes hyphens, it's replace with "/".
 
 	$ cutagem module-test
-	lib/module/test
+	Using Template: .cutagem/templates/default
+	cp -r /Users/cho45/.cutagem/templates/default /Users/cho45/tmp/module-test
+	Done.
 
-Select templates interactively. (-s, --select option)
+	$ ls module-test/lib/module/test.rb
+	module-test/lib/module/test.rb
+
+
+Select templates interactively. (<code>-s</code>, <code>--select</code> option)
 
 	$ cutagem -s module-test
+	Select template:
+	 1. .cutagem/templates/default
+	 2. default
+	 3. command
 	lib/module/test
 
 == Customization
 
-+cutagem+ read ~/.cutagem/template to use custom template as it.
++cutagem+ reads ~/.cutagem/template/* for use custom template as it.
+Especially "default" template is precedence.
+
+Library installed templates:
+
+* default
+* command
+
+User templates:
+
+* ~/.cutagem/template/default
+* ~/.cutagem/template/foobar
+
+Priority order:
+
+1. ~/.cutagem/template/default
+2. ~/.cutagem/template/foobar
+3. default (system)
+4. command (system)
+
+If you want to check this priority, add <code>-s</code>, <code>--select</code> option to +cutagem+.
+
+
+=== Template Spec.
+
+==== File Name Replacement
+
+[gemname]
+	The argument +gemname+.
+[gempath]
+	The string created by replacing "-" with "/" of +gemname+.
+	(ex. gemname is <code>hoge-hoge</code> then, gempath is <code>hoge/hoge</code>)
+	The path is automatically created.
+
+==== ERB Replacement
+
+All files process through ERB.
+
+[<%=gemname%>]
+	same as filename.
+[<%=gempath%>]
+	same as filename.
+[<%=gemclass%>]
+	classfied gemname.
+	(ex. gemname is <code>hoge-hoge_fuga</code> then, gempath is <code>Hoge/HogeFuga</code>)
+[<%=author%>]
+	ENV["USER"]
+[<%=email%>]
+	<code>#{ENV["USER"]}@#{ENV["HOST"]}</code>
+[<%=description%>]
+	<code>-d</code>, <code>--desc</code> option's value
+
+Of course ERB is ruby, write anything in the bracket.
 
 == Copyright
 

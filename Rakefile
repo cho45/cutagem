@@ -15,7 +15,8 @@ DESCRIPTION = "More safe eval codes."
 RUBYFORGE_PROJECT = "cutagem"
 HOMEPATH = "http://#{RUBYFORGE_PROJECT}.rubyforge.org"
 BIN_FILES = %w(  )
-VERS = "0.0.1"
+
+VERS = File.read("#{File.dirname(__FILE__)}/bin/cutagem")[/VERSION = "(\d\.\d\.\d)"/, 1]
 
 
 NAME = "cutagem"
@@ -98,6 +99,7 @@ Rake::RDocTask.new do |rdoc|
 		rdoc.rdoc_files.include('README', 'CHANGELOG')
 		rdoc.rdoc_files.include('lib/**/*.rb')
 		rdoc.rdoc_files.include('ext/**/*.c')
+		rdoc.rdoc_files.include('bin/**/*')
 	end
 end
 
@@ -105,20 +107,6 @@ desc "Publish to RubyForge"
 task :rubyforge => [:rdoc, :package] do
 	Rake::RubyForgePublisher.new(RUBYFORGE_PROJECT, 'cho45').upload
 end
-
-desc "Publish to lab"
-task :publab do
-	require 'rake/contrib/sshpublisher'
-
-	path = File.expand_path(File.dirname(__FILE__))
-
-	Rake::SshDirPublisher.new(
-		"cho45@lab.lowreal.net",
-		"/srv/www/lab.lowreal.net/public/site-ruby",
-		path + "/pkg"
-	).upload
-end
-
 
 desc 'Package and upload the release to rubyforge.'
 task :release => [:clean, :package] do |t|
