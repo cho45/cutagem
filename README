@@ -1,0 +1,48 @@
+
+= cutagem
+
+by cho45 <cho45@lowreal.net>
+
+== Description
+
+cutagem (Cut a Gem) is yet another executable of creating gem skelton.
+
+== Installation
+
+=== Archive Installation
+
+	rake install
+
+=== Gem Installation
+
+	gem install cutagem
+
+=== Subversion Repository
+
+Hosted by CodeRepos[http://coderepos.org/share/browser/lang/ruby/cutagem]
+
+	svn co http://svn.coderepos.org/share/lang/ruby/cutagem/
+
+
+== Usage
+
+	$ cutagem gemname
+	lib/gemname
+
+	$ cutagem module-test
+	lib/module/test
+
+Select templates interactively. (-s, --select option)
+
+	$ cutagem -s module-test
+	lib/module/test
+
+== Customization
+
++cutagem+ read ~/.cutagem/template to use custom template as it.
+
+== Copyright
+
+Author::    cho45 <cho45@lowreal.net>
+Copyright:: Copyright (c) 2007 cho45 www.lowreal.net
+License::   Ruby's

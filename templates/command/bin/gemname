@@ -1,0 +1,38 @@
+#!/usr/bin/env ruby
+# vim:ft=ruby:
+
+require "optparse"
+require "pathname"
+
+class <%=gemclass.gsub(/::/, "")%>Command
+	VERSION = "0.0.1"
+
+	include FileUtils
+	def self.run(argv)
+		new(argv.dup).run
+	end
+
+	def initialize(argv)
+		@argv = argv
+
+		@parser = OptionParser.new do |parser|
+			parser.banner = <<-EOB.gsub(/^\t+/, "")
+				Usage: #$0 [options]
+			EOB
+
+			parser.separator ""
+			parser.separator "Options:"
+
+			parser.on("--version", "Show version string `#{VERSION}'") do
+				puts VERSION
+				exit
+			end
+		end
+	end
+
+	def run
+		@parser.order!(@argv)
+
+		# write
+	end
+end

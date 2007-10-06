@@ -1,0 +1,29 @@
+
+= <%=gemname%>
+
+
+== Description
+
+
+== Installation
+
+=== Archive Installation
+
+	rake install
+
+=== Gem Installation
+
+	gem install <%=gemid%>
+
+
+== Features/Problems
+
+
+== Synopsys
+
+
+== Copyright
+
+Author::    <%=ENV['USER']%> <<%=email%>>
+Copyright:: Copyright (c) 2007 <%=ENV['USER']%>
+License::   
