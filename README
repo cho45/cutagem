@@ -42,7 +42,7 @@ When +gemname+ includes hyphens, it's replace with "/".
 	$ cutagem module-test
 	Using Template: .cutagem/templates/default
 	cp -r /Users/cho45/.cutagem/templates/default /Users/cho45/tmp/module-test
-	Done.
+	Done
 
 	$ ls module-test/lib/module/test.rb
 	module-test/lib/module/test.rb
@@ -55,12 +55,16 @@ Select templates interactively. (<code>-s</code>, <code>--select</code> option)
 	 1. .cutagem/templates/default
 	 2. default
 	 3. command
-	lib/module/test
+	1
+	cp -r /Users/cho45/.cutagem/templates/default /Users/cho45/tmp/module-test
+	Done
 
 == Customization
 
-+cutagem+ reads ~/.cutagem/template/* for use custom template as it.
++cutagem+ reads ~/.cutagem/template/* for using it as custom template.
 Especially "default" template is precedence.
+
+=== Priority Example
 
 Library installed templates:
 
@@ -103,7 +107,7 @@ All files process through ERB.
 	same as filename.
 [<%=gemclass%>]
 	classfied gemname.
-	(ex. gemname is <code>hoge-hoge_fuga</code> then, gempath is <code>Hoge/HogeFuga</code>)
+	(ex. gemname is <code>hoge-hoge_fuga</code> then, gemclass is <code>Hoge/HogeFuga</code>)
 [<%=author%>]
 	ENV["USER"]
 [<%=email%>]
@@ -111,7 +115,7 @@ All files process through ERB.
 [<%=description%>]
 	<code>-d</code>, <code>--desc</code> option's value
 
-Of course ERB is ruby, write anything in the bracket.
+Of course ERB is Ruby, you can write everything in the bracket.
 
 == Copyright
 
