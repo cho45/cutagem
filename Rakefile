@@ -16,7 +16,9 @@ RUBYFORGE_PROJECT = "cutagem"
 HOMEPATH = "http://#{RUBYFORGE_PROJECT}.rubyforge.org"
 BIN_FILES = %w(  )
 
-VERS = File.read("#{File.dirname(__FILE__)}/bin/cutagem")[/VERSION = "(\d\.\d\.\d)"/, 1]
+#VERS = File.read("#{File.dirname(__FILE__)}/bin/cutagem")[/VERSION = "(\d\.\d\.\d)"/, 1]
+load "#{File.dirname(__FILE__)}/lib/cutagem.rb"
+VERS = CutAGemCommand::VERSION
 
 
 NAME = "cutagem"
@@ -56,7 +58,7 @@ spec = Gem::Specification.new do |s|
 	s.rubyforge_project = RUBYFORGE_PROJECT
 	s.bindir = "bin"
 	s.require_path = "lib"
-	s.autorequire = "safe_eval"
+	s.autorequire = ""
 	s.test_files = Dir["test/test_*.rb"]
 
 	#s.add_dependency('activesupport', '>=1.3.1')
