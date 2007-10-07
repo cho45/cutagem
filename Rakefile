@@ -99,7 +99,7 @@ Rake::RDocTask.new do |rdoc|
 	if ENV['DOC_FILES']
 		rdoc.rdoc_files.include(ENV['DOC_FILES'].split(/,\s*/))
 	else
-		rdoc.rdoc_files.include('README', 'CHANGELOG')
+		rdoc.rdoc_files.include('README', 'ChangeLog')
 		rdoc.rdoc_files.include('lib/**/*.rb')
 		rdoc.rdoc_files.include('ext/**/*.c')
 		rdoc.rdoc_files.include('bin/**/*')

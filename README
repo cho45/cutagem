@@ -89,14 +89,14 @@ Other options:
 	Options:
 	-s, --select                     Select template interactively.
 	-d, --desc                       Describe this gem.
-	-c, --config                     Configure user values. Use vim
+	-c, --config                     Configure user values. Use $EDITOR
 	    --copy-template NAME         Copy template to user template dir naming NAME
 	    --version                    Show version string `0.0.2'
 
 
 == Customization
 
-+cutagem+ reads ~/.cutagem/template/* for using it as custom template.
++cutagem+ reads ~/.cutagem/templates/* for using it as custom template.
 Especially "default" template is precedence.
 
 You can make new template by coping the existing template using '--copy-template NAME' option.
@@ -110,13 +110,13 @@ Library installed templates:
 
 User templates:
 
-* ~/.cutagem/template/default
-* ~/.cutagem/template/foobar
+* ~/.cutagem/templates/default
+* ~/.cutagem/templates/foobar
 
 Priority order:
 
-1. ~/.cutagem/template/default
-2. ~/.cutagem/template/foobar
+1. ~/.cutagem/templates/default
+2. ~/.cutagem/templates/foobar
 3. default (system)
 4. command (system)
 

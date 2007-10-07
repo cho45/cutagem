@@ -31,7 +31,7 @@ class CutAGemCommand
 			parser.on("-d", "--desc", "Describe this gem.") do |@description|
 			end
 
-			parser.on("-c", "--config", "Configure user values. Use #{ENV["EDITOR"]}") do |c|
+			parser.on("-c", "--config", "Configure user values. Use $EDITOR") do |c|
 				@config.parent.mkpath
 				unless @config.exist?
 					@config.open("w") do |f|
