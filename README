@@ -10,6 +10,11 @@ cutagem (Cut a Gem) is yet another executable for creating gem skelton.
 This is similar in concept to newgem[http://newgem.rubyforge.org/] but
 more customizable for each user.
 
+cutagem (Cut a Gem: 宝石のカット) は新しい gem のスケルトンを作るコマンドです。
+
+newgem[http://newgem.rubyforge.org/] とよく似たものですが、cutagem は
+各ユーザがカスタマイズしやすいようになっています。
+
 == Concept
 
 * User customizable templates.
@@ -17,6 +22,14 @@ more customizable for each user.
   A time like this, copy and paste is better than DRY.
 * Do not use more config file which is written what can be written in Rakefile
   in default template.
+
+   
+
+* ユーザ固有のテンプレート
+* hoe とかを使いません。これは生成された Rakefile を更めてその gem 用に
+  カスタマイズしたいときにめんどくさくないようにです。
+* このパッケージのテンプレートは、
+  Rakefile に書けば済むことを設定として分離したりしません。
 
 == Installation
 
