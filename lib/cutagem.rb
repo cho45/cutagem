@@ -44,6 +44,18 @@ class CutAGemCommand
 				exec(ENV["EDITOR"], @config.to_s)
 			end
 
+			parser.on("--copy-template NAME", "Copy template to user template dir naming NAME") do |name|
+				@select = true
+				path = Pathname.new(ENV["HOME"]) + ".cutagem/templates" + name
+				if path.exist?
+					puts "#{path} is already exists."
+					exit 1
+				end
+				template = select_template()
+				cp_r template, path, :verbose => true
+				exit
+			end
+
 			parser.on("--version", "Show version string `#{VERSION}'") do
 				puts VERSION
 				exit

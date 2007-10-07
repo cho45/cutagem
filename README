@@ -64,10 +64,24 @@ Edit user configuration.
 	$ cutagem -c
 	[Open ~/.cutagem/config.yaml with $EDITOR]
 
+Other options:
+
+	Usage: cutagem [options] gemname
+	
+	Options:
+	-s, --select                     Select template interactively.
+	-d, --desc                       Describe this gem.
+	-c, --config                     Configure user values. Use vim
+	    --copy-template NAME         Copy template to user template dir naming NAME
+	    --version                    Show version string `0.0.2'
+
+
 == Customization
 
 +cutagem+ reads ~/.cutagem/template/* for using it as custom template.
 Especially "default" template is precedence.
+
+You can make new template by coping the existing template using '--copy-template NAME' option.
 
 === Priority Example
 
