@@ -2,7 +2,7 @@
 
 	* 0.0.3 release
 	* Fix Rakefile for case-sensitive system.
-	* Output more verbose.
+	* Output more verbosely.
 
 2007-10-07  SATOH Hiroh <cho45@lowreal.net>
 

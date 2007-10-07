@@ -89,7 +89,7 @@ end
 Rake::RDocTask.new do |rdoc|
 	rdoc.rdoc_dir = 'html'
 	rdoc.options += RDOC_OPTS
-	rdoc.template = "#{ENV["HOME"]}/coderepos/lang/ruby/rdoc/generators/template/html/resh/resh.rb"
+	rdoc.template = "resh"
 	#rdoc.template = "#{ENV['template']}.rb" if ENV['template']
 	if ENV['DOC_FILES']
 		rdoc.rdoc_files.include(ENV['DOC_FILES'].split(/,\s*/))
