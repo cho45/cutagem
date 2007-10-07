@@ -59,6 +59,11 @@ Select templates interactively. (<code>-s</code>, <code>--select</code> option)
 	cp -r /Users/cho45/.cutagem/templates/default /Users/cho45/tmp/module-test
 	Done
 
+Edit user configuration.
+
+	$ cutagem -c
+	[Open ~/.cutagem/config.yaml with $EDITOR]
+
 == Customization
 
 +cutagem+ reads ~/.cutagem/template/* for using it as custom template.
@@ -109,11 +114,13 @@ All files process through ERB.
 	classfied gemname.
 	(ex. gemname is <code>hoge-hoge_fuga</code> then, gemclass is <code>Hoge/HogeFuga</code>)
 [<%=author%>]
-	ENV["USER"]
+	ENV["USER"] or ~/.cutagem/config.yaml#author
 [<%=email%>]
-	<code>#{ENV["USER"]}@#{ENV["HOST"]}</code>
+	<code>#{ENV["USER"]}@#{ENV["HOST"]}</code> or ~/.cutagem/config.yaml#email
 [<%=description%>]
 	<code>-d</code>, <code>--desc</code> option's value
+[<%=config["user_config_value"]%>]
+	Replace with ~/.cutagem/config.yaml entry.
 
 Of course ERB is Ruby, you can write everything in the bracket.
 

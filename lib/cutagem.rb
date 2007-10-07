@@ -3,9 +3,10 @@ require "optparse"
 require "pathname"
 require "fileutils"
 require "erb"
+require "yaml"
 
 class CutAGemCommand
-	VERSION = "0.0.1"
+	VERSION = "0.0.2"
 
 	include FileUtils
 	def self.run(argv)
@@ -15,6 +16,7 @@ class CutAGemCommand
 	def initialize(argv)
 		@argv = argv
 
+		@config = Pathname.new(ENV["HOME"]) + ".cutagem/config.yaml"
 		@parser = OptionParser.new do |parser|
 			parser.banner = <<-EOB.gsub(/^\t+/, "")
 				Usage: #$0 [options] gemname
@@ -27,6 +29,19 @@ class CutAGemCommand
 			end
 
 			parser.on("-d", "--desc", "Describe this gem.") do |@description|
+			end
+
+			parser.on("-c", "--config", "Configure user values. Use #{ENV["EDITOR"]}") do |c|
+				@config.parent.mkpath
+				unless @config.exist?
+					@config.open("w") do |f|
+						f << <<-EOF.gsub(/^\t+/, "")
+						author: "#{ENV['USER']}"
+						email:  "#{ENV['USER']}@#{ENV['HOST']}"
+						EOF
+					end
+				end
+				exec(ENV["EDITOR"], @config.to_s)
 			end
 
 			parser.on("--version", "Show version string `#{VERSION}'") do
@@ -43,31 +58,6 @@ class CutAGemCommand
 			exit
 		end
 
-		@templates = Pathname.new(File.dirname(__FILE__)).realpath + '../templates'
-		@user_templates = Pathname.new(ENV["HOME"]).realpath + '.cutagem/templates'
-
-		templates = []
-		u_templates = []
-		if @user_templates.exist?
-			Pathname.glob(@user_templates + "*").each do |t|
-				t = [".cutagem/templates/#{t.basename}", t]
-				if t[1].basename.to_s == "default"
-					u_templates.unshift(t)
-				else
-					u_templates << t
-				end
-			end
-		end
-		Pathname.glob(@templates + "*").each do |t|
-			t = ["#{t.basename}", t]
-			if t[1].basename.to_s == "default"
-				templates.unshift(t)
-			else
-				templates << t
-			end
-		end
-		templates = u_templates + templates
-
 		pwd = Pathname.pwd
 
 		author      = ENV['USER']
@@ -80,38 +70,20 @@ class CutAGemCommand
 		}.join("::")
 		description = @description
 
-		template = nil
-		if @select
-			puts "Select template:"
-			templates.each_with_index do |item,index|
-				puts "% 2d. %s" % [index+1, item.first]
-			end
-			input = gets.chomp
-			case input
-			when ""
-				template = templates.first
-			when /^\d+$/
-				template = templates[input.to_i-1]
-			else
-				template = nil
-				puts "Canceled"
-				exit
-			end
-		else
-			template = templates.first
-		end
-		unless template
-			puts "Not select template."
-			exit
-		end
-		puts "Using Template: %s" % template
-		template = template[1]
+		template = select_template()
 
 		gemdir = pwd + gemname
 
 		if gemdir.exist?
 			puts "#{gemdir.basename} is already exists."
 			exit
+		end
+
+		begin
+			config = YAML.load(@config.read)
+			author = config["author"] if config["author"]
+			email  = config["email"]  if config["email"]
+		rescue Errno::ENOENT
 		end
 
 		begin
@@ -144,5 +116,58 @@ class CutAGemCommand
 			gets
 			exec(ENV["EDITOR"], gemdir + "Rakefile")
 		end
+	end
+
+	def select_template
+		@templates = Pathname.new(File.dirname(__FILE__)).realpath + '../templates'
+		@user_templates = Pathname.new(ENV["HOME"]).realpath + '.cutagem/templates'
+
+		templates = []
+		u_templates = []
+		if @user_templates.exist?
+			Pathname.glob(@user_templates + "*").each do |t|
+				t = [".cutagem/templates/#{t.basename}", t]
+				if t[1].basename.to_s == "default"
+					u_templates.unshift(t)
+				else
+					u_templates << t
+				end
+			end
+		end
+		Pathname.glob(@templates + "*").each do |t|
+			t = ["#{t.basename}", t]
+			if t[1].basename.to_s == "default"
+				templates.unshift(t)
+			else
+				templates << t
+			end
+		end
+		templates = u_templates + templates
+
+		if @select
+			puts "Select template:"
+			templates.each_with_index do |item,index|
+				puts "% 2d. %s" % [index+1, item.first]
+			end
+			input = gets.chomp
+			case input
+			when ""
+				template = templates.first
+			when /^\d+$/
+				template = templates[input.to_i-1]
+			else
+				template = nil
+				puts "Canceled"
+				exit
+			end
+		else
+			template = templates.first
+		end
+		unless template
+			puts "Not select template."
+			exit
+		end
+		puts "Using Template: %s" % template
+		template[1]
 	end
 end
