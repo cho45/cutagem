@@ -8,13 +8,15 @@ by cho45 <cho45@lowreal.net>
 cutagem (Cut a Gem) is yet another executable for creating gem skelton.
 
 This is similar in concept to newgem[http://newgem.rubyforge.org/] but
-more customizable for each users.
+more customizable for each user.
 
 == Concept
 
 * User customizable templates.
 * Not use hoe, etc. Because it makes difficult to customize the created Rakefile.
   A time like this, copy and paste is better than DRY.
+* Do not use more config file which is written what can be written in Rakefile
+  in default template.
 
 == Installation
 
@@ -34,15 +36,25 @@ Most simple sample:
 
 	$ cutagem gemname
 	Using Template: .cutagem/templates/default
-	cp -r /Users/cho45/.cutagem/templates/default /Users/cho45/tmp/gemname
+	~/.cutagem/config.yaml is not found. Use default.
+	cp -r /pathto/templates/default /pathto/gemname
+	Rename test/gemname_test.rb to test/gemname_test.rb
+	Rename lib/gempath.rb to lib/gemname.rb
 	Done.
+	Type any key to edit Rakefile.
+	
 
 When +gemname+ includes hyphens, it's replaced with "/".
 
 	$ cutagem module-test
 	Using Template: .cutagem/templates/default
-	cp -r /Users/cho45/.cutagem/templates/default /Users/cho45/tmp/module-test
-	Done
+	~/.cutagem/config.yaml is found. Use it.
+	cp -r /pathto/templates/default /pathto/module-test
+	Rename test/gemname_test.rb to test/module-test_test.rb
+	Rename lib/gempath.rb to lib/module/test.rb
+	Done.
+	Type any key to edit Rakefile.
+
 
 	$ ls module-test/lib/module/test.rb
 	module-test/lib/module/test.rb
@@ -56,8 +68,14 @@ Select templates interactively. (<code>-s</code>, <code>--select</code> option)
 	 2. default
 	 3. command
 	1
-	cp -r /Users/cho45/.cutagem/templates/default /Users/cho45/tmp/module-test
-	Done
+	Using Template: .cutagem/templates/default
+	~/.cutagem/config.yaml is found. Use it.
+	cp -r /pathto/templates/default /pathto/module-test
+	Rename test/gemname_test.rb to test/module-test_test.rb
+	Rename lib/gempath.rb to lib/module/test.rb
+	Done.
+	Type any key to edit Rakefile.
+
 
 Edit user configuration.
 
@@ -112,7 +130,7 @@ If you want to check this priority, add <code>-s</code>, <code>--select</code> o
 [gemname]
 	The argument +gemname+.
 [gempath]
-	The string created by replacing "-" with "/" of +gemname+.
+	The string created by replacing "-" with "/" in +gemname+.
 	(ex. gemname is <code>hoge-hoge</code> then, gempath is <code>hoge/hoge</code>)
 	The path is automatically created.
 

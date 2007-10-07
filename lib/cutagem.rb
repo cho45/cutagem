@@ -6,7 +6,7 @@ require "erb"
 require "yaml"
 
 class CutAGemCommand
-	VERSION = "0.0.2"
+	VERSION = "0.0.3"
 
 	include FileUtils
 	def self.run(argv)
@@ -95,18 +95,23 @@ class CutAGemCommand
 			config = YAML.load(@config.read)
 			author = config["author"] if config["author"]
 			email  = config["email"]  if config["email"]
+			puts "~/.cutagem/config.yaml is found. Use it."
 		rescue Errno::ENOENT
+			puts "~/.cutagem/config.yaml is not found. Use default."
 		end
 
 		begin
 			cp_r template, gemdir, :verbose => true
 			Pathname.glob(gemdir + "**/gemname*") do |f|
-				f.rename(f.parent + f.basename.to_s.sub(/gemname/, gemname))
+				new = f.parent + f.basename.to_s.sub(/gemname/, gemname)
+				puts "Rename #{f.relative_path_from(gemdir)} to #{new.relative_path_from(gemdir)}"
+				f.rename(new)
 			end
 			Pathname.glob(gemdir + "**/gempath*") do |f|
-				g = f.parent + f.basename.to_s.sub(/gempath/, gempath)
-				g.parent.mkpath
-				f.rename(g)
+				new = f.parent + f.basename.to_s.sub(/gempath/, gempath)
+				puts "Rename #{f.relative_path_from(gemdir)} to #{new.relative_path_from(gemdir)}"
+				new.parent.mkpath
+				f.rename(new)
 			end
 			Pathname.glob(gemdir + "**/*") do |f|
 				next unless f.file?
