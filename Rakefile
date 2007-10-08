@@ -134,3 +134,9 @@ task :release => [:clean, :package] do |t|
 	puts "Releasing #{NAME} v. #{VERS}"
 	rf.add_release RUBYFORGE_PROJECT, NAME, VERS, *files
 end
+
+desc "Package and upload the release to local gem repos."
+task :release_local => [:clean, :package] do |t|
+	name = "#{NAME}-#{VERS}.gem"
+	sh %{scp pkg/#{name} c:/srv/www/lab.lowreal.net/public/gems/gems}
+end
