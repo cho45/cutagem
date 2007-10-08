@@ -9,19 +9,19 @@ require 'rake/contrib/rubyforgepublisher'
 require 'fileutils'
 include FileUtils
 
-AUTHOR = "<%=author%>"
-EMAIL = "<%=email%>"
-DESCRIPTION = "<%=description%>"
-RUBYFORGE_PROJECT = "<%=gemid%>"
-HOMEPATH = "http://#{RUBYFORGE_PROJECT}.rubyforge.org"
-BIN_FILES = %w(  )
-VERS = "0.0.1"
+NAME              = "<%=gemname%>"
+AUTHOR            = "<%=author%>"
+EMAIL             = "<%=email%>"
+DESCRIPTION       = "<%=description%>"
+RUBYFORGE_PROJECT = "<%=config['meta_project'] || gemid%>"
+HOMEPATH          = "http://#{RUBYFORGE_PROJECT}.rubyforge.org"
+BIN_FILES         = %w(  )
+VERS              = "0.0.1"
 
-
-NAME = "<%=gemname%>"
 REV = File.read(".svn/entries")[/committed-rev="(d+)"/, 1] rescue nil
 CLEAN.include ['**/.*.sw?', '*.gem', '.config']
-RDOC_OPTS = ['--title', "#{NAME} documentation",
+RDOC_OPTS = [
+	'--title', "#{NAME} documentation",
 	"--charset", "utf-8",
 	"--opname", "index.html",
 	"--line-numbers",
@@ -29,15 +29,14 @@ RDOC_OPTS = ['--title', "#{NAME} documentation",
 	"--inline-source",
 ]
 
-desc "Packages up #{NAME} gem."
 task :default => [:test]
 task :package => [:clean]
 
-Rake::TestTask.new("test") { |t|
-	t.libs << "test"
+Rake::TestTask.new("test") do |t|
+	t.libs   << "test"
 	t.pattern = "test/**/*_test.rb"
 	t.verbose = true
-}
+end
 
 spec = Gem::Specification.new do |s|
 	s.name              = NAME
