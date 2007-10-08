@@ -1,3 +1,9 @@
+2007-10-09  SATOH Hiroh <cho45@lowreal.net>
+
+	* 0.0.4 release
+	* Add dependency to Resh (resh).
+	* Fixed default template dependent.
+
 2007-10-08  SATOH Hiroh <cho45@lowreal.net>
 
 	* 0.0.3 release

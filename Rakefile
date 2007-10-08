@@ -25,7 +25,8 @@ VERS = CutAGemCommand::VERSION
 NAME = "cutagem"
 REV = File.read(".svn/entries")[/committed-rev="(d+)"/, 1] rescue nil
 CLEAN.include ['**/.*.sw?', '*.gem', '.config']
-RDOC_OPTS = ['--title', "#{NAME} documentation",
+RDOC_OPTS = [
+	'--title', "#{NAME} documentation",
 	"--charset", "utf-8",
 	"--opname", "index.html",
 	"--line-numbers",
@@ -38,7 +39,7 @@ task :default => [:test]
 task :package => [:clean]
 
 Rake::TestTask.new("test") { |t|
-	t.libs << "test"
+	t.libs   << "test"
 	t.pattern = "test/**/*_test.rb"
 	t.verbose = true
 }
@@ -62,6 +63,7 @@ spec = Gem::Specification.new do |s|
 	s.autorequire = ""
 	s.test_files = Dir["test/test_*.rb"]
 
+	s.add_dependency('resh')
 	#s.add_dependency('activesupport', '>=1.3.1')
 	#s.required_ruby_version = '>= 1.8.2'
 
