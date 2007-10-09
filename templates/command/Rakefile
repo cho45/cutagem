@@ -7,7 +7,6 @@ require 'rake/gempackagetask'
 require 'rake/rdoctask'
 require 'rake/contrib/rubyforgepublisher'
 require 'rake/contrib/sshpublisher'
-require 'rubyforge'
 require 'fileutils'
 include FileUtils
 
@@ -104,6 +103,7 @@ end
 
 desc "Publish to RubyForge"
 task :rubyforge => [:rdoc, :package] do
+	require 'rubyforge'
 	Rake::RubyForgePublisher.new(RUBYFORGE_PROJECT, '<%=ENV['USER']%>').upload
 end
 
