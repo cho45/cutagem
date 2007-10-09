@@ -24,6 +24,6 @@
 
 == Copyright
 
-Author::    <%=ENV['USER']%> <<%=email%>>
-Copyright:: Copyright (c) 2007 <%=ENV['USER']%>
+Author::    <%=author%> <<%=email%>>
+Copyright:: Copyright (c) <%=Time.now.strftime("%Y")%> <%=author%>
 License::   
