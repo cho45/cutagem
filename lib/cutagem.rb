@@ -6,7 +6,7 @@ require "erb"
 require "yaml"
 
 class CutAGemCommand
-	VERSION = "0.0.4"
+	VERSION = "0.0.5"
 
 	include FileUtils
 	def self.run(argv)
@@ -45,13 +45,12 @@ class CutAGemCommand
 			end
 
 			parser.on("--copy-template NAME", "Copy template to user template dir naming NAME") do |name|
-				@select = true
 				path = Pathname.new(ENV["HOME"]) + ".cutagem/templates" + name
 				if path.exist?
 					puts "#{path} is already exists."
 					exit 1
 				end
-				template = select_template()
+				template = select_template(true)
 				cp_r template, path, :verbose => true
 				exit
 			end
@@ -82,7 +81,7 @@ class CutAGemCommand
 		}.join("::")
 		description = @description
 
-		template = select_template()
+		template = select_template(@select)
 
 		gemdir = pwd + gemname
 
@@ -135,7 +134,9 @@ class CutAGemCommand
 		end
 	end
 
-	def select_template
+	# Select template from system templates and user templtes.
+	# if +select+ is true, select templates interactively.
+	def select_template(select)
 		@templates = Pathname.new(File.dirname(__FILE__)).realpath + '../templates'
 		@user_templates = Pathname.new(ENV["HOME"]).realpath + '.cutagem/templates'
 
@@ -161,7 +162,7 @@ class CutAGemCommand
 		end
 		templates = u_templates + templates
 
-		if @select
+		if select
 			puts "Select template:"
 			templates.each_with_index do |item,index|
 				puts "% 2d. %s" % [index+1, item.first]

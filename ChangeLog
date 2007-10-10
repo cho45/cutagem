@@ -1,23 +1,29 @@
+2007-10-10  SATOH Hiroh <cho45@lowreal.net>
+
+	* 0.0.5 release:
+	 * Fixed default template dependecy.
+	 * Fixed default template README replacement.
+
 2007-10-09  SATOH Hiroh <cho45@lowreal.net>
 
-	* 0.0.4 release
-	* Add dependency to Resh (resh).
-	* Fixed default template dependent.
+	* 0.0.4 release:
+	 * Add dependency to Resh (resh).
+	 * Fixed default template dependeny.
 
 2007-10-08  SATOH Hiroh <cho45@lowreal.net>
 
-	* 0.0.3 release
-	* Fix Rakefile for case-sensitive system.
-	* Output more verbosely.
+	* 0.0.3 release:
+	 * Fix Rakefile for case-sensitive system.
+	 * Output more verbosely.
 
 2007-10-07  SATOH Hiroh <cho45@lowreal.net>
 
-	* 0.0.2 release
-	* use ~/.cutagem/config.yaml as user config.
-	* Rename ChangeLog
+	* 0.0.2 release:
+	 * use ~/.cutagem/config.yaml as user config.
+	 * Rename ChangeLog
 
 2007-10-07  SATOH Hiroh <cho45@lowreal.net>
 
-	* 0.0.1 release
+	* 0.0.1 release:
 
 
