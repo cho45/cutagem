@@ -90,6 +90,7 @@ class CutAGemCommand
 			exit
 		end
 
+		config = {}
 		begin
 			config = YAML.load(@config.read)
 			author = config["author"] if config["author"]
