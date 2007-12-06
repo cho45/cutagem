@@ -1,3 +1,6 @@
+2007-12-07  Keiji Yoshimi <walf443@gmail.com>
+	 * Add --gem-class option.
+
 2007-10-11  SATOH Hiroh <cho45@lowreal.net>
 
 	* 0.0.6 release:

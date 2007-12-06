@@ -55,6 +55,9 @@ class CutAGemCommand
 				exit
 			end
 
+      parser.on('--gem-class GEMCLASS', 'Specify your gem class name explicitly') do |@gemclass|
+      end
+
 			parser.on("--version", "Show version string `#{VERSION}'") do
 				puts VERSION
 				exit
@@ -76,7 +79,7 @@ class CutAGemCommand
 		gemname     = @argv.shift
 		gemid       = gemname.gsub("-", "")
 		gempath     = gemname.gsub("-", "/")
-		gemclass    = gempath.split("/").map {|c|
+		gemclass    = @gemclass ? @gemclass : gempath.split("/").map {|c|
 			c.split(/_/).collect {|i| i.capitalize }.join("")
 		}.join("::")
 		description = @description
