@@ -25,10 +25,12 @@ class CutAGemCommand
 			parser.separator ""
 			parser.separator "Options:"
 
-			parser.on("-s", "--select", "Select template interactively.") do |@select|
+			parser.on("-s", "--select", "Select template interactively.") do |select|
+        @select = select
 			end
 
-			parser.on("-d", "--desc", "Describe this gem.") do |@description|
+			parser.on("-d", "--desc", "Describe this gem.") do |description|
+        @description = description
 			end
 
 			parser.on("-c", "--config", "Configure user values. Use $EDITOR") do |c|
@@ -55,7 +57,8 @@ class CutAGemCommand
 				exit
 			end
 
-      parser.on('--gem-class GEMCLASS', 'Specify your gem class name explicitly') do |@gemclass|
+      parser.on('--gem-class GEMCLASS', 'Specify your gem class name explicitly') do |gemclass|
+        @gemclass = gemclass
       end
 
 			parser.on("--version", "Show version string `#{VERSION}'") do
