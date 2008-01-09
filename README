@@ -157,7 +157,7 @@ All files process through ERB.
 	same as filename.
 [<%=gemclass%>]
 	classfied gemname.
-	(ex. gemname is <code>hoge-hoge_fuga</code> then, gemclass is <code>Hoge/HogeFuga</code>)
+	(ex. gemname is <code>hoge-hoge_fuga</code> then, gemclass is <code>Hoge::HogeFuga</code>)
 [<%=author%>]
 	ENV["USER"] or ~/.cutagem/config.yaml#author
 [<%=email%>]
