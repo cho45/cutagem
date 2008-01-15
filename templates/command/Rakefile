@@ -113,6 +113,7 @@ task :release => [:clean, :package] do |t|
 	abort "Versions don't match #{v} vs #{VERS}" unless v == VERS
 	pkg = "pkg/#{NAME}-#{VERS}"
 
+	require 'rubyforge'
 	rf = RubyForge.new
 	puts "Logging in"
 	rf.login
