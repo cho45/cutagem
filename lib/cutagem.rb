@@ -72,13 +72,13 @@ class CutAGemCommand
 		@parser.order!(@argv)
 		unless @argv.first
 			puts "gemname must be required."
-			exit
+			exit 1
 		end
 
 		pwd = Pathname.pwd
 
-		author      = ENV['USER']
-		email       = "#{ENV['USER']}@#{ENV['HOST']}"
+		author      = self.author
+		email       = self.email
 		gemname     = @argv.shift
 		gemid       = gemname.gsub("-", "")
 		gempath     = gemname.gsub("-", "/")
@@ -138,6 +138,24 @@ class CutAGemCommand
 			puts "Type any key to edit Rakefile."
 			gets
 			exec(ENV["EDITOR"], gemdir + "Rakefile")
+		end
+	end
+
+	def author
+		res = `git-config --global --get user.name 2> /dev/null`
+		if $?.success?
+			res.strip
+		else
+			ENV['USER']
+		end
+	end
+
+	def email
+		res = `git-config --global --get user.email 2> /dev/null`
+		if $?.success?
+			res.strip
+		else
+			"#{ENV['USER']}@#{ENV['HOST']}"
 		end
 	end
 
